@@ -19,7 +19,7 @@ spec:
           ports:
             - containerPort: 8080
           env:   # Setting Enviornmental Variables
-           - name: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_URL
               value: jdbc:mysql://mysql:3306/studentk8s
             - name: SPRING_DATASOURCE_USERNAME
               value: root
