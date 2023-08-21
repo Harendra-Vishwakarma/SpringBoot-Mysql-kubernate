@@ -7,7 +7,7 @@ pipeline{
     stages{
         stage("code"){
             steps{
-                git url:'https://github.com/Harendra-Vishwakarma/Spring-Boot-With-Docker.git', branch:"main"
+                git url:'https://github.com/Harendra-Vishwakarma/SpringBoot-Mysql-kubernate.git', branch:"main"
             }
         }
          stage("Build"){
