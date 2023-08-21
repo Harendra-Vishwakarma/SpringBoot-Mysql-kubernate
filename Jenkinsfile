@@ -25,6 +25,11 @@ pipeline{
               }
             }
         }
+         stage("Run MYSQL on kubernets (minikube)"){
+            steps{
+              bat "kubectl apply -f db-deployment.yaml"
+            }
+        }
          stage("deplo on kubernets (minikube)"){
             steps{
               bat "kubectl apply -f app-deployment.yaml"
