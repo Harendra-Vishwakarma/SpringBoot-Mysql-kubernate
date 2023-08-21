@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: springboot-crud-k8s
-          image: springboot-mysql-k8s:1.0 #i get it from docker hub
+          image: harendravishwakarma/springboot-mysql-k8s:1.0 #i get it from docker hub
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
