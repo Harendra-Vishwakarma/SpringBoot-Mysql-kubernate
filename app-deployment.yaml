@@ -17,7 +17,7 @@ spec:
           image: harendravishwakarma/springboot-mysql-k8s:1.0 #i get it from docker hub
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8081
+            - containerPort: 8080
           env:   # Setting Enviornmental Variables
             - name: DB_HOST   # Setting Database host address from configMap
               value: mysql
@@ -38,7 +38,7 @@ spec:
     app: springboot-k8s-mysql
   ports:
     - protocol: "TCP"
-      port: 8081 # The port that the service is running on in the cluster
+      port: 8080 # The port that the service is running on in the cluster
       targetPort: 8081 # The port exposed by the service
   type: NodePort # type of the service.
 
