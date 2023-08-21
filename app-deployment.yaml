@@ -19,13 +19,11 @@ spec:
           ports:
             - containerPort: 8080
           env:   # Setting Enviornmental Variables
-            - name: DB_HOST   # Setting Database host address from configMap
-              value: mysql
-            - name: DB_NAME  # Setting Database name from configMap
-              value: studentk8s
-            - name: DB_USERNAME  # Setting Database username from Secret
+           - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/studentk8s
+            - name: SPRING_DATASOURCE_USERNAME
               value: root
-            - name: DB_PASSWORD # Setting Database password from Secret
+            - name: SPRING_DATASOURCE_PASSWORD
               value: root
 ---
 
