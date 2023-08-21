@@ -25,5 +25,10 @@ pipeline{
               }
             }
         }
+         stage("deplo on kubernets (minikube)"){
+            steps{
+              bat "kubectl apply -f deployment.yaml
+            }
+        }
     }
 }
