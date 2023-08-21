@@ -27,7 +27,7 @@ pipeline{
         }
          stage("deplo on kubernets (minikube)"){
             steps{
-              bat "kubectl apply -f app-deployment.yaml
+              bat "kubectl apply -f app-deployment.yaml"
             }
         }
     }
