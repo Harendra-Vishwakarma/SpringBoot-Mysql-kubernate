@@ -13,12 +13,16 @@ pipeline{
          stage("Build"){
             steps{
               bat "mvn -Dmaven.test.skip=true clean package"
-               bat "docker build -t springapp ."
+               bat "docker build -t springapp:v1 ."
             }
         }
-         stage("Deploy"){
+         stage("docker image bused on docker hub"){
             steps{
-               bat "docker-compose down && docker-compose up -d"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubPass', usernameVariable: 'dockerhubUser')]) {
+               bat "docker login -u ${env.dockerhubUser} -p ${env.dockerhubPass}"
+               bat "docker tag springapp ${env.dockerhubUser}/springapp:v1"
+               bat "docker push ${env.dockerhubUser}/springapp:v1 "
+              }
             }
         }
     }
