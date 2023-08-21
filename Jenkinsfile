@@ -21,7 +21,7 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubPass', usernameVariable: 'dockerhubUser')]) {
                bat "docker login -u ${env.dockerhubUser} -p ${env.dockerhubPass}"
                bat "docker tag springapp ${env.dockerhubUser}/springboot-mysql-k8s:1.0"
-               bat "docker push ${env.dockerhubUser}/springapp:v1 "
+               bat "docker push ${env.dockerhubUser}/springboot-mysql-k8s:1.0"
               }
             }
         }
