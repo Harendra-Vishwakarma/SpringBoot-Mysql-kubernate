@@ -10,6 +10,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
+---
 # Configure 'Deployment' of mysql server
 apiVersion: apps/v1
 kind: Deployment
