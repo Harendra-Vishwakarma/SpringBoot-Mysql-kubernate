@@ -20,7 +20,7 @@ spec:
             - containerPort: 8080
           env:   # Setting Enviornmental Variables
             - name: DB_HOST   # Setting Database host address from configMap
-              value: root
+              value: mysql
             - name: DB_NAME  # Setting Database name from configMap
               value: studentk8s
             - name: DB_USERNAME  # Setting Database username from Secret
