@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: springboot-mysql-deploymentl
+        app: springboot-mysql-deployment
     spec:
       containers:
         - name: springboot-mysql-deployment
