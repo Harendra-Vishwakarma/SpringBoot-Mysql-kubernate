@@ -20,7 +20,7 @@ pipeline{
             steps{
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubPass', usernameVariable: 'dockerhubUser')]) {
                sh "docker login -u ${env.dockerhubUser} -p ${env.dockerhubPass}"
-               sh "docker tag springapp ${env.dockerhubUser}/springboot-k8s:latest"
+               sh "docker tag springboot-k8s ${env.dockerhubUser}/springboot-k8s:latest"
                sh "docker push ${env.dockerhubUser}/springboot-k8s:latest"
               }
             }
