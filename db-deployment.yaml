@@ -2,14 +2,16 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: mysql-pv-claim # name of PVC essential for identifying the storage data
+  labels:
+    app: mysql
+    tier: database
 spec:
-  storageClassName: standard
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce   #This specifies the mode of the claim that we are trying to create.
   resources:
     requests:
-      storage: 1Gi
+      storage: 1Gi    #This will tell kubernetes about the amount of space we are trying to claim.
 ---
 # Configure 'Deployment' of mysql server
 apiVersion: apps/v1
@@ -18,19 +20,24 @@ metadata:
   name: mysql
   labels:
     app: mysql
+    tier: database
 spec:
   selector: # mysql Pod Should contain same labels
     matchLabels:
       app: mysql
+      tier: database
   strategy:
     type: Recreate
   template:
     metadata:
       labels: # Must match 'Service' and 'Deployment' selectors
         app: mysql
+        tier: database
     spec:
       containers:
         - image: mysql:latest # image from docker-hub
+          args:
+            - "--ignore-db-dir=lost+found" # Workaround for https://github.com/docker-library/mysql/issues/186
           name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
@@ -55,10 +62,12 @@ metadata:
   name: mysql  # DNS name
   labels:
     app: mysql
+    tier: database
 spec:
   ports:
     - port: 3306
       targetPort: 3306
   selector:       # mysql Pod Should contain same labels
     app: mysql
+    tier: database
   clusterIP: None  # We Use DNS, Thus ClusterIP is not relevant

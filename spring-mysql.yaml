@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-mysql-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-boot-mysql-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-mysql-app
+    spec:
+      containers:
+        - name: spring-boot-container
+          image: springboot-k8s:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql-service:3306/studentk8s
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: root
+        - name: mysql
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: studentk8s
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PASSWORD
+              value: root
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: spring-boot-mysql-app
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
