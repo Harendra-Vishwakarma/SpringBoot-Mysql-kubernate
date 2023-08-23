@@ -43,7 +43,7 @@ spec:
             - name: MYSQL_DATABASE # Setting Database Name from a 'ConfigMap'
               value: test
           ports:
-            - containerPort: 3306
+            - containerPort: 3307
               name: mysql  #it is a host name
           volumeMounts:        # Mounting voulume obtained from Persistent Volume Claim
             - name: mysql-persistent-storage
@@ -63,8 +63,8 @@ metadata:
     tier: database
 spec:
   ports:
-    - port: 3306
-      targetPort: 3306
+    - port: 3307
+      targetPort: 3307
   selector:       # mysql Pod Should contain same labels
     app: mysql
     tier: database
