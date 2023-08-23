@@ -14,12 +14,13 @@ spec:
     spec:
       containers:
         - name: springboot-crud-k8s
-          image: springboot-k8s:latest #i get it from docker hub
+          image: spring-k8s:latest #i get it from docker hub
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env:   # Setting Enviornmental Variables
             - name: DB_HOST   # Setting Database host address from configMap
-              value: root
+              value: mysql
             - name: DB_NAME  # Setting Database name from configMap
               value: studentk8s
             - name: DB_USERNAME  # Setting Database username from Secret
@@ -36,7 +37,7 @@ spec:
   selector:
     app: springboot-k8s-mysql
   ports:
-    - protocol: "TCP"
+    - protocol: TCP
       port: 8080 # The port that the service is running on in the cluster
       targetPort: 8080 # The port exposed by the service
   type: NodePort # type of the service.
