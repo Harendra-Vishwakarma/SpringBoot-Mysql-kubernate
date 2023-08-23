@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: springboot-crud-k8s
-          image: spring-k8s:latest #i get it from docker hub
+          image: springboot-k8s:latest #i get it from docker hub
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
