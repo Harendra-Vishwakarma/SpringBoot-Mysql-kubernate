@@ -13,15 +13,15 @@ pipeline{
          stage("Build"){
             steps{
               sh "mvn -Dmaven.test.skip=true clean package"
-               sh "docker build -t springboot-mysql-k8s:1.0 ."
+               sh "docker build -t springboot-k8s ."
             }
         }
          stage("docker image bused on docker hub"){
             steps{
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubPass', usernameVariable: 'dockerhubUser')]) {
                sh "docker login -u ${env.dockerhubUser} -p ${env.dockerhubPass}"
-               sh "docker tag springapp ${env.dockerhubUser}/springboot-mysql-k8s:1.0"
-               sh "docker push ${env.dockerhubUser}/springboot-mysql-k8s:1.0"
+               sh "docker tag springapp ${env.dockerhubUser}/springboot-k8s:latest"
+               sh "docker push ${env.dockerhubUser}/springboot-k8s:latest"
               }
             }
         }
