@@ -41,7 +41,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: root
             - name: MYSQL_DATABASE # Setting Database Name from a 'ConfigMap'
-              value: studentk8s
+              value: test
           ports:
             - containerPort: 3306
               name: mysql  #it is a host name
