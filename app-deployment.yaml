@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-crud-deployment
+  name: springboot-mysql-deployment
 spec:
   selector:
     matchLabels:
-      app: springboot-k8s-mysql
+      app: springboot-mysql-deployment
   replicas: 3
   template:
     metadata:
       labels:
-        app: springboot-k8s-mysql
+        app: springboot-mysql-deploymentl
     spec:
       containers:
-        - name: springboot-crud-k8s
+        - name: springboot-mysql-deployment
           image: springboot-k8s:latest #i get it from docker hub
           imagePullPolicy: IfNotPresent
           ports:
@@ -32,10 +32,10 @@ spec:
 apiVersion: v1 # Kubernetes API version
 kind: Service # Kubernetes resource kind we are creating
 metadata: # Metadata of the resource kind we are creating
-  name: springboot-crud-svc
+  name: springboot-mysql-deployment
 spec:
   selector:
-    app: springboot-k8s-mysql
+    app: springboot-mysql-deploymentl
   ports:
     - protocol: TCP
       port: 8082 # The port that the service is running on in the cluster
