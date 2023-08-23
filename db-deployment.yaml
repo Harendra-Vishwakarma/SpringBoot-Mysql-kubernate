@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim # name of PVC essential for identifying the storage data
   labels:
-    app: mysql
+    app: mysql-k8s
     tier: database
 spec:
   accessModes:
@@ -17,26 +17,26 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: mysql-k8s
   labels:
-    app: mysql
+    app: mysql-k8s
     tier: database
 spec:
   selector: # mysql Pod Should contain same labels
     matchLabels:
-      app: mysql
+      app: mysql-k8s
       tier: database
   strategy:
     type: Recreate
   template:
     metadata:
       labels: # Must match 'Service' and 'Deployment' selectors
-        app: mysql
+        app: mysql-k8s
         tier: database
     spec:
       containers:
         - image: mysql:latest # image from docker-hub
-          name: mysql
+          name: mysql-k8s
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
@@ -44,7 +44,7 @@ spec:
               value: test
           ports:
             - containerPort: 3307
-              name: mysql  #it is a host name
+              name: mysql-k8s  #it is a host name
           volumeMounts:        # Mounting voulume obtained from Persistent Volume Claim
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql #This is the path in the container on which the mounting will take place.
@@ -57,15 +57,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql  # DNS name
+  name: mysql-k8s  # DNS name
   labels:
-    app: mysql
+    app: mysql-k8s
     tier: database
 spec:
   ports:
     - port: 3307
       targetPort: 3307
   selector:       # mysql Pod Should contain same labels
-    app: mysql
+    app: mysql-k8s
     tier: database
   clusterIP: None  # We Use DNS, Thus ClusterIP is not relevant
