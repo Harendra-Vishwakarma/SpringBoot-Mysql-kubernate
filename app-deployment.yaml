@@ -13,9 +13,8 @@ spec:
         app: springboot-k8s-mysql
     spec:
       containers:
-        - name: springboot-k8s
-          image: springboot-k8s:latest#i get it from docker hub
-          imagePullPolicy: IfNotPresent
+        - name: springboot-crud-k8s
+          image: springboot-k8s:latest #i get it from docker hub
           ports:
             - containerPort: 8080
           env:   # Setting Enviornmental Variables
